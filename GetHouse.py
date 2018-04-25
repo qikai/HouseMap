@@ -41,7 +41,7 @@ headers = {
 }
 
 
-csv_file = open('fang.csv','a')
+csv_file = open('fang.csv','a', encoding='utf8')
 csv_write = csv.writer(csv_file, dialect='excel')
 
 while page < 71:
