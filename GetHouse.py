@@ -9,7 +9,8 @@ import random
 import sys
 importlib.reload(sys)
 
-url = 'https://bj.lianjia.com/ershoufang/pg{page}/'
+#url = 'https://bj.lianjia.com/ershoufang/pg{page}/'
+url = 'https://bj.lianjia.com/ershoufang/pg{page}ea20000bp220ep250/'
 
 page = 0
 
@@ -40,10 +41,10 @@ headers = {
 }
 
 
-csv_file = open('fang.csv','w')
+csv_file = open('fang.csv','a')
 csv_write = csv.writer(csv_file, dialect='excel')
 
-while page < 2:
+while page < 71:
     time.sleep(random.randint(3,8))
     page+=1
     print("正在下载网页：", url.format(page=page))
@@ -55,10 +56,11 @@ while page < 2:
     	break
 
     for house in house_list:
-        house_title = house.find('div',{'class', 'houseInfo'}).get_text().encode('utf8')
-        house_url = house.find('div',{'class', 'title'}).a['href'].encode('utf8')
-        house_location = house.find('div',{'class','positionInfo'}).a.text.encode('utf8')
-        house_price = house.find('div',{'class','totalPrice'}).span.text.encode('utf8')
+        house_title = house.find('div',{'class', 'houseInfo'}).get_text()
+        house_url = house.find('div',{'class', 'title'}).a['href']
+        #house_location = house.find('div',{'class','positionInfo'}).a.text
+        house_location = house.find('div',{'class','houseInfo'}).a.text
+        house_price = house.find('div',{'class','totalPrice'}).span.text
         csv_write.writerow([house_title,house_location,house_price,house_url])
         #print(house_price)
     
